@@ -12,11 +12,10 @@ class Card{
 		this.suit = suit;
 		this.value = face;
 		this.name = face + " of " + suit;
-	},
-	_value: 0,
+	}
 	get value() {
 		return this._value;
-	},
+	}
 	set value(face) {
 		if (typeof face === 'number'){
 			if((face < 11) && (face > 1)){
@@ -25,9 +24,9 @@ class Card{
 				console.log("Error: valid arguments include a number from 2-10, Ace, Jack, Queen, or King") //TODO: make this actually throw an error
 			}
 		}else if (typeof face === 'string'){
-			if (['Jack', 'Queen', 'King'].some(face)){
+			if (['Jack', 'Queen', 'King'].includes(face)){
 				this._value = 10;
-			}else if(string === 'Ace'){
+			}else if(face === 'Ace'){
 				this._value = 1;
 				// TODO: Make the Ace card automatically update its value to either 11 or 1, depending on which will get the owning player's total value closest to 21 without busting
 			}else{
@@ -64,7 +63,7 @@ let deck = {
 		// draw chooses a number at random, and checks to see if that number is in the remainingCards array
 	reshuffle() { 
 		// resets remainingCards back to its initial value, with all cards remaining
-		deck = [];
+		tempDeck = [];
 
 		const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds']
 		const faces = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace']
@@ -72,10 +71,10 @@ let deck = {
 		suits.forEach( suit => {
 			faces.forEach( face => {
 				let card = new Card(face, suit);
-				deck.push(card)
+				tempDeck.push(card)
 			})
 		});
-		this.remainingCards = deck;
+		this.remainingCards = tempDeck;
 
 	}
 };
