@@ -46,20 +46,24 @@ class Card{
 let deck = {
 	draw(player) {
 		// choose a card at random from the remaining cards
+		randomNumber = Math.random(0, this.remainingCards.length)
+		randomCard = this.remainingCards[randomNumber]
 		// send it to the hand of the chosen player (user or dealer)
+		player.hand.push(randomCard)
 		// remove it from the deck
+		_remove(randomNumber)
 	},
-	_remove(card) {
+	_remove(cardIndex) {
 		// remove a card from the deck
 		// should be called by draw, not directly
+		this.remainingCards.splice(cardIndex, 1)
 	},
-	remainingCards: this.reshuffle(),
+	remainingCards: [],
 		// contains either a dictionary or an array that keeps track of what cards remain
 		// array implementation: there is an array with numbers in it, from 1 to 52
 		// draw chooses a number at random, and checks to see if that number is in the remainingCards array
-		// if it is in the array, remove the number from the array, and run the number through a list that translates the number into its name (ex: 2 of hearts, queen of spades) and value
 	reshuffle() { 
-		// resets remainingCards back to its initial value
+		// resets remainingCards back to its initial value, with all cards remaining
 		deck = [];
 
 		const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds']
@@ -68,8 +72,10 @@ let deck = {
 		suits.forEach( suit => {
 			faces.forEach( face => {
 				let card = new Card(face, suit);
+				deck.push(card)
 			})
 		});
+		this.remainingCards = deck;
 
 	}
 };
