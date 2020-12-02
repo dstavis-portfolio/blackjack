@@ -1,4 +1,4 @@
-<!-- DOM -->
+<!DOCTYPE html>
 
 <!-- will have to display the player's cards and the dealer's cards -->
 <!-- will have to display a face-up card or a face-down card -->
@@ -6,3 +6,31 @@
 <!-- should display the player's point total -->
 <!-- optional: display the point value of each face-up card near it -->
 <!-- has a separate display for declaring the winner -->
+<html>
+
+	<head>
+		<title>Blackjack | [Codeworks project]</title>
+		<link href="main.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div id="dealer">
+			<div class="card"><span class="cardName">Empty</span></div> <!-- the name of the card will have to be set by script to an image matching the card being displayed -->
+			<div class="score">0</div>
+		</div>
+
+		<div id="user">
+			<div class="score"><span class="cardName">0</span></div>
+			<div class="card">Empty</div> 
+
+			<div id="userButtons">	
+				<button class="hit button">Hit</button>
+				<button class="stand button">Stand</button>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+	</body>
+
+</html>
