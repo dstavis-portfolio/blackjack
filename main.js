@@ -1,11 +1,5 @@
-// Model
-
-// Represent the data being presented in the document
-// 
-// the deck contains 52 distinct cards. there are 4 suits (spades, clubs, hearts, diamonds)
-// each suit contains 13 cards: ace. 2-10. jack, queen, king.
-// when a card is drawn, remove a random card from the deck so that it cannot be drawn again until the next game
- 
+// a card is an object that knows what its suit and number are
+// as well as what its value is (or can be, in the case of an ace)
 class Card{
 	constructor(face, suit){
 		this.face = face;
@@ -23,10 +17,11 @@ class Card{
 			}else{
 				console.log("Error: valid arguments include a number from 2-10, Ace, Jack, Queen, or King") //TODO: make this actually throw an error
 			}
+		// face cards are worth 10
 		}else if (typeof face === 'string'){
 			if (['Jack', 'Queen', 'King'].includes(face)){
 				this._value = 10;
-			}else if(face === 'Ace'){
+			}else if(face === 'Ace'){ // an ace can value at 1 or 11, players' choice (or, according to which state is most optimal)
 				this._value = 1;
 				// TODO: Make the Ace card automatically update its value to either 11 or 1, depending on which will get the owning player's total value closest to 21 without busting
 			}else{
@@ -36,25 +31,22 @@ class Card{
 	}
 }
 
-	// a card will probably be an object that knows what its suit and number are
-	// as well as what its value is (or can be, in the case of an ace)
-	// an ace can value at 1 or 11, players' choice (or, according to which state is most optimal)
-	// face cards are worth 10
-
-
+// the deck contains 52 distinct cards. there are 4 suits (spades, clubs, hearts, diamonds)
+// each suit contains 13 cards: ace. 2-10. jack, queen, king.
+// when a card is drawn, remove a random card from the deck so that it cannot be drawn again until the next game
 let deck = {
-	draw(player) {
+	deal() {
 		// choose a card at random from the remaining cards
-		randomNumber = Math.random(0, this.remainingCards.length)
-		randomCard = this.remainingCards[randomNumber]
-		// send it to the hand of the chosen player (user or dealer)
-		player.hand.push(randomCard)
+		randomNumber = Math.floor(Math.random() * (this.remainingCards.length + 1))
+		randomCard = this.remainingCards[randomNumber];
 		// remove it from the deck
-		_remove(randomNumber)
+		this._remove(randomNumber)
+		// return the card
+		return randomCard;
 	},
 	_remove(cardIndex) {
 		// remove a card from the deck
-		// should be called by draw, not directly
+		// should be called by , not directly
 		this.remainingCards.splice(cardIndex, 1)
 	},
 	remainingCards: [],
@@ -79,47 +71,85 @@ let deck = {
 	}
 };
 
-let hand = {
-	// belongs to a player (either the user or the dealer)
-	// contains a model of what cards are currently in the assigned player's hand
-	// contains a model of the assigned players' current total points
-	// when the hand's current total points updates, it causes any aces in the hand to adjust their values to either 1 or 11 according to what would give the player the best outcome
+class Hand{
+	constructor(player){
+		// belongs to a player (either the user or the dealer)
+		this.player = player;
+		// contains a model of what cards are currently in the assigned player's hand
+		this.cards = [];
+		// contains a model of the assigned players' current total points
+		this.pointTotal = 0; //TODO: make this private and give it a getter that returns it, and a setter that calls updatePointTotal and console.logs that it should not be set directly
+	}
+
+	addCard(card){
+		if(card != undefined){
+			this.cards.push(card);
+		}else{
+			console.log("card error: " + card)
+		}
+		this.updatePointTotal();
+	}
+
+	updatePointTotal(){
+		// TODO: when the hand's current total points updates, it causes any aces in the hand to adjust their values to either 1 or 11 according to what would give the player the best outcome
+		let currentPointTotal = this.cards.reduce( (pointsSoFar, currentCard) => {
+			return pointsSoFar += currentCard.value;
+		}, 0);
+		console.log("output of reduce: " + currentPointTotal)
+		if (this.pointTotal > 21){
+			this.bust();
+		}
+		this.pointTotal = currentPointTotal;
+	}
+
+	bust(){
+		// if a player's point total exceeds 21, they bust. if the user busts, the game ends and they immediately lose. if the dealer busts when the user hasn't, the game ends and the user wins
+	}
 };
 
-let userManager = {
-	hand: {
-		// the user has a hand that knows what cards they have
-		// as well as their current point total
-	},
+class Player{
+	constructor(){
+		this.hand = [];
+	}
+	
 	hit() {
 		// a button in the document that the user can click will activate this method for the user
-		// tells the gameManager the player wants to draw a card to their hand
+		// the gameManager will call this method for the dealer automatically when the time is right
+		this.hand.addCard(deck.deal());
+	}
+
+	stand() {
+		// lets the gameManager know that they're going to end their turn. once the user stands, the dealer takes their turn, and then the winner is decided
 	}
 }
 
-
-let dealerManager = {
-	hand: {} //holds a hand object belonging to the dealer
-}
-
 let gameManager = {
-	user: {}, //an object referring to the user
-	dealer: {}, //an object reference to the dealer
 	win(player) {
 		// display a message indicating that the passed player won the game
 		// display a reset button to start a new game
 	},
 	startNewGame() {
-		// clear the visual cards off the screen
-		// clear the model representation of cards in the players' hands
+		// clear the visual cards off the screen TODO: implement visual cards
 		// reshuffle the deck so that it contains all cards
-		// 
-	},
-	hit(player) {
-		// this method will activate automatically for the dealer under certain conditions
-		//
-	},
-	stand(player) {
-		// this method will activate automatically for the dealer under certain conditions
+		deck.reshuffle();
+		// reset the model representation of cards in the players' hands
+		let dealer = new Player();
+		dealer.hand = new Hand(dealer);
+		
+		let user = new Player();
+		user.hand = new Hand(user);
+		
+		// Dealer gets one card face-up, one card face-down (or one card face-up and nothing else)
+		dealer.hit()
+
+		// User gets two cards
+		user.hit()
+		user.hit()
 	}
 }
+
+function run(){
+	gameManager.startNewGame();
+}
+
+run();
