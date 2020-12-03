@@ -95,21 +95,19 @@ class Hand{
 		let currentPointTotal = this.cards.reduce( (pointsSoFar, currentCard) => {
 			return pointsSoFar += currentCard.value;
 		}, 0);
-		console.log("output of reduce: " + currentPointTotal)
-		if (this.pointTotal > 21){
-			this.bust();
-		}
+		
 		this.pointTotal = currentPointTotal;
-	}
 
-	bust(){
-		// if a player's point total exceeds 21, they bust. if the user busts, the game ends and they immediately lose. if the dealer busts when the user hasn't, the game ends and the user wins
+		if (this.pointTotal > 21){
+			this.player.bust();
+		}
 	}
 };
 
 class Player{
-	constructor(){
-		this.hand = [];
+	constructor(idName){
+		this.hand = new Hand(this);
+		this.id = idName;
 	}
 	
 	hit() {
@@ -121,22 +119,31 @@ class Player{
 	stand() {
 		// lets the gameManager know that they're going to end their turn. once the user stands, the dealer takes their turn, and then the winner is decided
 	}
+
+	bust() {
+		gameManager.endGame(this.id)
+	}
 }
 
 let gameManager = {
-	win(player) {
-		// display a message indicating that the passed player won the game
+	dealer: new Player("dealer"),
+	user: new Player("user"),
+	endGame(loser) {
+		// if the dealer lost, display a message indicating that the user won
+		if (loser === "dealer"){
+			console.log("Congratulations! You win!")
+		}else if (loser === "user"){
+			console.log("Oooh, sorry...you lost this round. Refresh the page to play a new round.")
+		}
+		
 		// display a reset button to start a new game
 	},
 	startNewGame() {
-		// clear the visual cards off the screen TODO: implement visual cards
+		// clear the visual cards off the screen TODO: implement visual cards and clear them
 		// reshuffle the deck so that it contains all cards
 		deck.reshuffle();
 		// reset the model representation of cards in the players' hands
-		let dealer = new Player();
 		dealer.hand = new Hand(dealer);
-		
-		let user = new Player();
 		user.hand = new Hand(user);
 		
 		// Dealer gets one card face-up, one card face-down (or one card face-up and nothing else)
@@ -145,8 +152,16 @@ let gameManager = {
 		// User gets two cards
 		user.hit()
 		user.hit()
+
+		// Dealer pauses, and user can either hit or stand
+		// If the user hits, they may bust, which will end the game
+		// If they stand, the dealer takes their turn
+		// If the dealer has <17 points, they hit. If they hit and bust, the game ends and the user wins.
+		// If they have 17-21 points, they stand. When the dealer stands, compare their score to the user's score:
+		// if the user's score is higher, they win. if the dealer's score is higher, the user loses.
 	}
 }
+
 
 function run(){
 	gameManager.startNewGame();
