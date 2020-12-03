@@ -14,15 +14,23 @@
 	</head>
 
 	<body>
-		<div class="dealer">
-			<div class="card"><span class="cardName">Empty</span></div> <!-- TODO: the name of the card will have to be set by script to an image matching the card being displayed -->
-			<div class="score">0</div>
+		<div class="dealer playMat">
+			<h1 class="playerName">Dealer</h1>
+			<div class="score">Points: 0</div>
+			<h3>Hand</h3>
+			<div class="hand">
+				<div class="card"><span class="cardName">Empty</span></div>
+			</div>
 		</div>
 
-		<div class="user">
-			<div class="score"><span>0</span></div>
-			<div class="card"><span class="cardName">Empty</span></div> 
-
+		<div class="user playMat">
+			<h1 class="playerName">You</h1>
+			<div class="score">Points: 0</div>
+			<h3>Hand</h3>
+			<div class="hand">
+				<div class="card"><span class="cardName">Empty</span></div> 
+			</div>
+			<br>
 			<div id="userButtons">	
 				<button class="hit button">Hit</button>
 				<button class="stand button">Stand</button>

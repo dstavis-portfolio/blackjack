@@ -1,0 +1,1 @@
+$('.dealer .hand .card .span').text("Ace of Spades") // selects card text in the dealer's hand

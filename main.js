@@ -143,15 +143,18 @@ let gameManager = {
 		// reshuffle the deck so that it contains all cards
 		deck.reshuffle();
 		// reset the model representation of cards in the players' hands
-		dealer.hand = new Hand(dealer);
-		user.hand = new Hand(user);
+		this.dealer.hand = new Hand(this.dealer);
+		this.user.hand = new Hand(this.user);
 		
 		// Dealer gets one card face-up, one card face-down (or one card face-up and nothing else)
-		dealer.hit()
+		this.dealer.hit()
 
 		// User gets two cards
-		user.hit()
-		user.hit()
+		this.user.hit()
+		this.user.hit()
+
+		viewManager.updatePlayerViews(this.dealer)
+		viewManager.updatePlayerViews(this.user)
 
 		// Dealer pauses, and user can either hit or stand
 		// If the user hits, they may bust, which will end the game
@@ -159,6 +162,35 @@ let gameManager = {
 		// If the dealer has <17 points, they hit. If they hit and bust, the game ends and the user wins.
 		// If they have 17-21 points, they stand. When the dealer stands, compare their score to the user's score:
 		// if the user's score is higher, they win. if the dealer's score is higher, the user loses.
+	}
+}
+
+let viewManager = {
+	updateHandView(player){
+		let playerName = player.id;
+		let cards = player.hand.cards
+		let captureObject = $(`.${playerName} .hand .card`)
+		if( captureObject.length < cards.length ){
+			for(i = captureObject.length; i < cards.length; i++){
+				this.addCardToHandView(player, cards[i])
+			}
+		}
+		for(i = 0; i < cards.length; i++){
+			captureObject.eq(i).text(`[${cards[i].name}]`)
+		}
+	},
+	updatePointView(player){
+		let playerName = player.id;
+		let points = player.hand.pointTotal;
+		$(`.${playerName} .score`).text(`Points: ${points}`)
+	},
+	updatePlayerViews(player){
+		this.updateHandView(player);
+		this.updatePointView(player);
+	},
+	addCardToHandView(player, card){
+		let cardHTML = `<div><div class="card"><span class="cardName">[${card.name}]</span></div>`
+		$(`.${player.id} .hand`).append(cardHTML)
 	}
 }
 
