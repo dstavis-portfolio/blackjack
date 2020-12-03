@@ -113,7 +113,9 @@ class Player{
 	hit() {
 		// a button in the document that the user can click will activate this method for the user
 		// the gameManager will call this method for the dealer automatically when the time is right
-		this.hand.addCard(deck.deal());
+		let newCard = deck.deal();
+		this.hand.addCard(newCard);
+		viewManager.updatePlayerViews(this, newCard);
 	}
 
 	stand() {
@@ -129,13 +131,18 @@ let gameManager = {
 	dealer: new Player("dealer"),
 	user: new Player("user"),
 	endGame(loser) {
+		let messageText = "";
 		// if the dealer lost, display a message indicating that the user won
 		if (loser === "dealer"){
-			console.log("Congratulations! You win!")
+			messageText = "Congratulations! You win! Refresh the page to play a new round.";
+			console.log(messageText);
 		}else if (loser === "user"){
-			console.log("Oooh, sorry...you lost this round. Refresh the page to play a new round.")
+			messageText = "Oooh, sorry...you lost this round. Refresh the page to play a new round.";
+			console.log(messageText);
 		}
 		
+		viewManager.displayMessage(messageText);
+
 		// display a reset button to start a new game
 	},
 	startNewGame() {
@@ -191,6 +198,9 @@ let viewManager = {
 	addCardToHandView(player, card){
 		let cardHTML = `<div><div class="card"><span class="cardName">[${card.name}]</span></div>`
 		$(`.${player.id} .hand`).append(cardHTML)
+	},
+	displayMessage(text){
+		$(`#messageBox .message`).text(`${text}`);
 	}
 }
 
