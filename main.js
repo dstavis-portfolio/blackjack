@@ -99,17 +99,19 @@ class Hand{
 			return pointsSoFar += currentCard.value;
 		}, 0);
 		
+
 		if (currentPointTotal > 21){
 			// if your points would be over 21 but there are one or more aces in your hand whose values are 11, change the first ace's value to 1 and recalculate
 			let indexOfBigAce = this.getIndexOfBigAce();
 			if(indexOfBigAce !== -1){
 				// find first big ace and make it small
 				this.cards[indexOfBigAce].value = "Ace*";
-				this.updatePointTotal(); //becomes recursive
+				currentPointTotal -= 10;
 			}
 		}
 
 		this.pointTotal = currentPointTotal;
+		
 		if (this.pointTotal > 21){
 			this.player.bust();
 		}
@@ -265,3 +267,34 @@ function run(){
 }
 
 run();
+
+// function test(){
+// 	deck.reshuffle();
+// 	let dealer = gameManager.dealer;
+// 	let user = gameManager.user;
+// 	// reset the model representation of cards in the players' hands
+// 	dealer.hand = new Hand(dealer);
+// 	user.hand = new Hand(user);
+
+// 	// Skip hitting, construct example hands
+
+// 	// We want a hand value that goes over 21 for the user
+// 	let testAce = deck.remainingCards[12] //initial value 11
+// 	let testJack = deck.remainingCards[9] // initial value 10
+// 	let testTwo = deck.remainingCards[0] // initial value 2
+
+// 	user.hand.addCard(testAce);
+// 	user.hand.addCard(testJack);
+// 	user.hand.addCard(testTwo); // should trigger the ace to change value to 1
+
+
+// 	// this.hand.addCard();
+// 	// viewManager.updatePlayerViews(this, newCard);	
+
+
+// 	// Update the starting view
+// 	// viewManager.updatePlayerViews(this.dealer)
+// 	// viewManager.updatePlayerViews(this.user)
+// }
+
+// test()
