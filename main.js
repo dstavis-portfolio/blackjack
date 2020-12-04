@@ -111,7 +111,7 @@ class Hand{
 		}
 
 		this.pointTotal = currentPointTotal;
-		
+
 		if (this.pointTotal > 21){
 			this.player.bust();
 		}
@@ -267,34 +267,3 @@ function run(){
 }
 
 run();
-
-// function test(){
-// 	deck.reshuffle();
-// 	let dealer = gameManager.dealer;
-// 	let user = gameManager.user;
-// 	// reset the model representation of cards in the players' hands
-// 	dealer.hand = new Hand(dealer);
-// 	user.hand = new Hand(user);
-
-// 	// Skip hitting, construct example hands
-
-// 	// We want a hand value that goes over 21 for the user
-// 	let testAce = deck.remainingCards[12] //initial value 11
-// 	let testJack = deck.remainingCards[9] // initial value 10
-// 	let testTwo = deck.remainingCards[0] // initial value 2
-
-// 	user.hand.addCard(testAce);
-// 	user.hand.addCard(testJack);
-// 	user.hand.addCard(testTwo); // should trigger the ace to change value to 1
-
-
-// 	// this.hand.addCard();
-// 	// viewManager.updatePlayerViews(this, newCard);	
-
-
-// 	// Update the starting view
-// 	// viewManager.updatePlayerViews(this.dealer)
-// 	// viewManager.updatePlayerViews(this.user)
-// }
-
-// test()
