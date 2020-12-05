@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<!-- will have to display the player's cards and the dealer's cards -->
+<!-- will have to display a face-up card or a face-down card -->
+<!-- needs a player hit button, and a player stand button, that indicate whether or not they can be clicked -->
+<!-- should display the player's point total -->
+<!-- optional: display the point value of each face-up card near it -->
+<!-- has a separate display for declaring the winner -->
+<html>
+
+	<head>
+		<title>Blackjack | [Codeworks project]</title>
+		<link href="main.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="playArea">
+			<div class="dealer playMat">
+				<h1 class="box playerName">Dealer</h1>
+				<div class="box score">Points: 0</div>
+				<h3>Hand</h3>
+				<div class="hand">
+					<div class="box card"><span class="cardName">Empty</span></div>
+				</div>
+			</div>
+
+			<div class="user playMat">
+				<h1 class="box playerName">You</h1>
+				<div class="box score">Points: 0</div>
+				<h3>Hand</h3>
+				<div class="hand">
+					<div class="box card"><span class="cardName">Empty</span></div> 
+				</div>
+				<br>
+				<div id="userButtons">	
+					<button class="box hit button">Hit</button>
+					<button class="box stand button">Stand</button>
+				</div>
+			</div>
+
+			<div id="messageBox" class="box">
+				<h2 class="message"></h2>
+			</div>
+		</div class="playArea">
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+	</body>
+
+</html>

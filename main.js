@@ -99,7 +99,6 @@ class Hand{
 			return pointsSoFar += currentCard.value;
 		}, 0);
 		
-
 		if (currentPointTotal > 21){
 			// if your points would be over 21 but there are one or more aces in your hand whose values are 11, change the first ace's value to 1 and recalculate
 			let indexOfBigAce = this.getIndexOfBigAce();
@@ -107,11 +106,11 @@ class Hand{
 				// find first big ace and make it small
 				this.cards[indexOfBigAce].value = "Ace*";
 				currentPointTotal -= 10;
+				this.updatePointTotal(); //becomes recursive
 			}
 		}
 
 		this.pointTotal = currentPointTotal;
-
 		if (this.pointTotal > 21){
 			this.player.bust();
 		}
@@ -158,7 +157,9 @@ let gameManager = {
 
 		let messageText = "";
 		// if the dealer lost, display a message indicating that the user won
-		if (loser === "dealer"){
+		if(loser === "tie"){
+			messageText = "Wow! A tie. Refresh the page to play a new round.";
+		}else if (loser === "dealer"){
 			messageText = "Congratulations! You win! Refresh the page to play a new round.";
 		}else if (loser === "user"){
 			messageText = "Oooh, sorry...you lost this round. Refresh the page to play a new round.";
@@ -169,9 +170,11 @@ let gameManager = {
 		// display a reset button to start a new game
 	},
 	determineLoser(){
-		if (this.dealer.hand.pointTotal > this.user.hand.pointTotal){
+		if(this.dealer.hand.pointTotal === this.user.hand.pointTotal){
+			this.endGame("tie")
+		} else if (this.dealer.hand.pointTotal > this.user.hand.pointTotal){
 			this.endGame(this.user.id);
-		} else{
+		} else {
 			this.endGame(this.dealer.id);
 		}
 	},
@@ -220,10 +223,10 @@ let gameManager = {
 		// If the user hits, they may bust, which will end the game
 		// If they stand, the dealer takes their turn
 		// Wait for user input
-		$('#userButtons .hit.button').on('click', function(){
+		$('.hit.button').on('click', function(){
 			gameManager.user.hit()
 		})
-		$('#userButtons .stand.button').on('click', function(){
+		$('.stand.button').on('click', function(){
 			gameManager.user.stand()
 		})
 	}
@@ -233,31 +236,35 @@ let viewManager = {
 	updateHandView(player){
 		let playerName = player.id;
 		let cards = player.hand.cards
-		let captureObject = $(`.${playerName} .hand .card`)
-		if( captureObject.length < cards.length ){
-			for(i = captureObject.length; i < cards.length; i++){
+		let cardDisplays = $(`.${playerName}Hand .card`)
+		if( cardDisplays.length < cards.length ){
+			for(i = cardDisplays.length; i < cards.length; i++){
 				this.addCardToHandView(player, cards[i])
 			}
 		}
 		for(i = 0; i < cards.length; i++){
-			captureObject.eq(i).text(`[${cards[i].name}]`)
+			cardDisplays.eq(i).text(`${cards[i].name}`)
 		}
 	},
 	updatePointView(player){
 		let playerName = player.id;
 		let points = player.hand.pointTotal;
-		$(`.${playerName} .score`).text(`Points: ${points}`)
+		if(points > 21){
+			$(`.${playerName}Score span`).text(`${points} BUST`)
+		}else{
+			$(`.${playerName}Score span`).text(`${points}`)
+		}
 	},
 	updatePlayerViews(player, card){
 		this.updateHandView(player, card);
 		this.updatePointView(player);
 	},
 	addCardToHandView(player, card){
-		let cardHTML = `<div><div class="card"><span class="cardName">[${card.name}]</span></div>`
-		$(`.${player.id} .hand`).append(cardHTML)
+		let cardHTML = `<div class="card"><span class="cardName">${card.name}</span></div>`
+		$(`.${player.id}Hand`).append(cardHTML)
 	},
 	displayMessage(text){
-		$(`#messageBox .message`).text(`${text}`);
+		$(`.message h2`).text(`${text}`);
 	}
 }
 

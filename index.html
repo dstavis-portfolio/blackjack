@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-
-<!-- will have to display the player's cards and the dealer's cards -->
-<!-- will have to display a face-up card or a face-down card -->
-<!-- needs a player hit button, and a player stand button, that indicate whether or not they can be clicked -->
-<!-- should display the player's point total -->
-<!-- optional: display the point value of each face-up card near it -->
-<!-- has a separate display for declaring the winner -->
 <html>
 
 	<head>
@@ -14,31 +7,33 @@
 	</head>
 
 	<body>
-		<div class="dealer playMat">
-			<h1 class="playerName">Dealer</h1>
-			<div class="score">Points: 0</div>
-			<h3>Hand</h3>
-			<div class="hand">
-				<div class="card"><span class="cardName">Empty</span></div>
+		<div class="bigGrid">
+			<div class="dealerName box">
+				<h2>Dealer</h2>
 			</div>
-		</div>
-
-		<div class="user playMat">
-			<h1 class="playerName">You</h1>
-			<div class="score">Points: 0</div>
-			<h3>Hand</h3>
-			<div class="hand">
-				<div class="card"><span class="cardName">Empty</span></div> 
+			<div class="dealerScore box">
+				<h2>Score: <span></span></h2>
 			</div>
-			<br>
-			<div id="userButtons">	
-				<button class="hit button">Hit</button>
-				<button class="stand button">Stand</button>
+			<!-- <div class="header box"></div> -->
+			<div class="dealerHand cardGridContainer">	
 			</div>
-		</div>
-
-		<div id="messageBox">
-			<h2 class="message"></h2>
+			<div class="message">
+				<h2></h2>
+			</div>
+			<div class="userHand cardGridContainer">
+			</div>
+			<div class="userName box">
+				<h2>You</h2>
+			</div>
+			<div class="userScore box">
+				<h2>Score: <span></span></h2>
+			</div>
+			<div class="hit button box">
+				<button>Hit</button>
+			</div>
+			<div class="stand button box">
+				<button>Stand</button>
+			</div>
 		</div>
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
