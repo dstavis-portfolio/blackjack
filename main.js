@@ -266,7 +266,7 @@ let viewManager = {
 		this.updatePointView(player);
 	},
 	addCardToHandView(player, card){
-		// let cardHTML = `<div class="card"><span class="cardName">${card.name}</span></div>`
+		// let cardHTML = `<div class="card"><span class="cardName">${card.name}</span></div>` //text-only version
 		let cardHTML = `<div class="card"><img class="cardImage" src="./img/cards/${card.imgName}" alt="${card.name}"></div>`
 		$(`.${player.id}Hand`).append(cardHTML)
 	},
