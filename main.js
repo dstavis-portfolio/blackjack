@@ -7,6 +7,11 @@ class Card{
 		this._value = 0;
 		this.value = face;
 		this.name = face + " of " + suit;
+		let imgRank = face;
+		if(typeof face === 'string'){
+			imgRank = imgRank = face[0] 
+		}
+		this.imgName = `card${suit}${imgRank}.png`
 	}
 	get value() {
 		return this._value;
@@ -242,9 +247,10 @@ let viewManager = {
 				this.addCardToHandView(player, cards[i])
 			}
 		}
-		for(i = 0; i < cards.length; i++){
-			cardDisplays.eq(i).text(`${cards[i].name}`)
-		}
+		// for(i = 0; i < cards.length; i++){
+		// 	// cardDisplays.eq(i).text(`${cards[i].name}`)
+		// 	cardDisplays.eq(i)
+		// }
 	},
 	updatePointView(player){
 		let playerName = player.id;
@@ -260,7 +266,8 @@ let viewManager = {
 		this.updatePointView(player);
 	},
 	addCardToHandView(player, card){
-		let cardHTML = `<div class="card"><span class="cardName">${card.name}</span></div>`
+		// let cardHTML = `<div class="card"><span class="cardName">${card.name}</span></div>` //text-only version
+		let cardHTML = `<div class="card"><img class="cardImage" src="./img/cards/${card.imgName}" alt="${card.name}"></div>`
 		$(`.${player.id}Hand`).append(cardHTML)
 	},
 	displayMessage(text){

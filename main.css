@@ -1,45 +1,73 @@
+html, body{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
 .bigGrid {
-	border:dashed red;
-	width: 800px;
-	height: 600px;
+	/*border:dashed red;*/
+	box-shadow: inset 10px 10px 100px 1px rgba(0,0,0,0.35);
+	width: 100%;
+	height: 100%;
 	display: grid;
+
+	/*grid-template-areas: "space dealerName dealerScore header space"
+					 "space dealerHand dealerHand dealerHand space"
+					 "space message message message space"
+					 "space userHand userHand userHand space"
+					 "space userName userScore hit stand";*/
+	/*grid-template-columns: 100px repeat(3, 1fr) 100px;*/
+
 	grid-template-areas: "dealerName dealerScore header header header"
 						 "dealerHand dealerHand dealerHand dealerHand dealerHand"
 						 "message message message message message"
 						 "userHand userHand userHand userHand userHand"
 						 "userName userScore footer hit stand";
-	/*grid-template: 1fr 3fr 2fr 3fr 1fr / repeat(5, 1fr);*/ /* rows them columns */
 	grid-template-columns: repeat(5, 1fr);
+	/*grid-template-columns: repeat(5, 1fr);*/
 	grid-template-rows: 1fr 3fr 2fr 3fr 1fr;
-	/*grid-column-gap: 5px;*/
-	/*grid-row-gap: 10px;*/
-	/*grid-gap: 5px 10px;*/
-	/*grid-gap: 10px 10px;*/
+	font-family: Calibri;
 }
 
 .cardGridContainer {
 	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-	grid-auto-columns: 1fr;
+	grid-template-columns: repeat(3, 170px);
+	grid-auto-columns: 170pxfr;
 	grid-auto-flow: column;
 	grid-template-rows: 1fr;
 	align-items: center;
 	justify-items: center;
-	/*justify-content: space-between;*/
-	/*align-content: center;*/
 	grid-column-gap: 5px;
-/*	border: solid purple;
-	border-radius:5px;*/
 }
 .card{
-	height: 100px;
-	width: 70px;
-	background-color: lightgrey;
-	border: dashed green;
+	height: 210px;
+	width: 150px;
+	/*background-color: #f7f4ef;*/
+	/*border: 1px solid darkgrey;*/
+	/*border-radius: 15px;*/
+	/*box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.17);*/
+	display: inline-grid;
+	justify-items: center;
+	align-items: center;
+	font-family: Garamondi;
+	font-weight: bold;
+}
+.card img{
+	box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.3);
+	border-radius:6px;
 }
 
 .dealerName{
 	grid-area: dealerName;
+	-webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+    color:white;
+}
+.dealerName h2{
+	font-weight: bolder;
+	font-size: 3.5em;
+	margin: 0;
 }
 
 .dealerScore{
@@ -62,16 +90,22 @@
 	color:black;
 }
 
-.test{
-	/*align-self: center;*/
-}
-
 .userHand{
 	grid-area: userHand;
 }
 
 .userName{
 	grid-area: userName;
+	font-size: 1.5em;
+	-webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+    color:white;
+    font-weight: bolder;
+}
+.userName h2{
+	font-weight: bolder;
+	font-size: 3em;
+	margin: 0;
 }
 
 .userScore{
@@ -95,68 +129,37 @@
 	justify-items: center; 
 }
 
-.hit button{
+.hit.button{
 	justify-self:end;
 }
-.stand button{
+.stand.button{
 	justify-self:center;
 }
 
-button{
-	width: 100px;
-	height: 40px;
+.button {
+	box-shadow:inset 0px 1px 3px 0px #2b665e;
+	background-color:#5a6b68;
+
+	border-radius:3px;
+
+	border:1px solid #566963;
+	/*display:inline-block;*/
+	color:#ffffff;
+	font-family:Verdana;
+	font-size:33px;
+	height:50px;
+	line-height:50px;
+	width:140px;
+	font-weight: bolder;
+	/*letter-spacing: 0.0625em: */
+	text-decoration:none;
+	text-align:center;
+
+	-webkit-text-stroke-width: .5px;
+    -webkit-text-stroke-color: #77838f;
+}.button:hover {
+	background-color:#6c7c7c;
+}.button:active {
+	position:relative;
+	top:1px;
 }
-
-/*.container{
-	justify-content: center;
-	align-content: center;
-}*/
-
-
-
-
-/**/
-/*
-.dealer .playerName{
-	grid-area: 1 / 1 / span 1 / span 1;
-}
-	
-.dealer .score{
-	grid-area: 1 / 2 / span 1 / span 1;
-}
-
-.dealer .card{
-	grid-row-start: 2;
-	grid-row-end: span 1; 
-}
-
-#messageBox{
-	grid-row-start: 3;
-	grid-row-end: span 1;
-}
-
-.user .playerName{
-	grid-area: 5 / 1 / span 1 / span 1;
-}
-
-.user .card{
-	grid-row-start: 4;
-	grid-row-end: span 1; 
-}
-
-.user .score{
-	grid-area: 5 / 2 / span 1 / span 1;
-}
-
-.user .card{
-	grid-row-start: 4;
-	grid-row-end: span 1;
-}
-
-.button.hit{
-	grid-area: 5 / 4 / span 1 / span 1;
-}
-
-.button.stand{
-	grid-area: 5 / 5 / span 1 / span 1;
-}*/
