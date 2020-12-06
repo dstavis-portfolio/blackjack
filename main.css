@@ -7,7 +7,7 @@ html, body{
 
 .bigGrid {
 	/*border:dashed red;*/
-	box-shadow: inset 38px 39px 137px 15px rgba(0,0,0,0.35);
+	box-shadow: inset 10px 10px 100px 1px rgba(0,0,0,0.35);
 	width: 100%;
 	height: 100%;
 	display: grid;
@@ -24,39 +24,49 @@ html, body{
 						 "message message message message message"
 						 "userHand userHand userHand userHand userHand"
 						 "userName userScore footer hit stand";
-	grid-template-columns: 3fr repeat(3, 1fr) 3fr;
+	grid-template-columns: repeat(5, 1fr);
 	/*grid-template-columns: repeat(5, 1fr);*/
 	grid-template-rows: 1fr 3fr 2fr 3fr 1fr;
-	font-family: calibri;
+	font-family: Calibri;
 }
 
 .cardGridContainer {
 	display: grid;
-	grid-template-columns: minmax(50px, 1fr) repeat(2, 170px) minmax(50px, 1fr);
-	grid-auto-columns: 1fr;
+	grid-template-columns: repeat(3, 170px);
+	grid-auto-columns: 170pxfr;
 	grid-auto-flow: column;
 	grid-template-rows: 1fr;
 	align-items: center;
-	justify-items: end;
+	justify-items: center;
 	grid-column-gap: 5px;
 }
 .card{
 	height: 210px;
 	width: 150px;
-	background-color: #f7f4ef;
-	border: 1px solid darkgrey;
-	border-radius: 15px;
-	box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.17);
+	/*background-color: #f7f4ef;*/
+	/*border: 1px solid darkgrey;*/
+	/*border-radius: 15px;*/
+	/*box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.17);*/
 	display: inline-grid;
 	justify-items: center;
 	align-items: center;
 	font-family: Garamondi;
 	font-weight: bold;
 }
+.card img{
+	box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.3);
+	border-radius:6px;
+}
 
 .dealerName{
 	grid-area: dealerName;
-	font-size: 1.5em;
+	-webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    color:white;
+}
+.dealerName h2{
+	font-weight: bolder;
+	font-size: 3em;
 }
 
 .dealerScore{
@@ -86,6 +96,14 @@ html, body{
 .userName{
 	grid-area: userName;
 	font-size: 1.5em;
+	-webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    color:white;
+    font-weight: bolder;
+}
+.userName h2{
+	font-weight: bolder;
+	font-size: 3em;
 }
 
 .userScore{
@@ -130,13 +148,16 @@ html, body{
 	height:50px;
 	line-height:50px;
 	width:140px;
+	font-weight: bolder;
 	/*letter-spacing: 0.0625em: */
 	text-decoration:none;
 	text-align:center;
-	text-shadow:1px 1px 0px #77838f;
-}.hitButton:hover {
+
+	-webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}.button:hover {
 	background-color:#6c7c7c;
-}.hitButton:active {
+}.button:active {
 	position:relative;
 	top:1px;
 }
