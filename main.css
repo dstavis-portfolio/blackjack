@@ -41,6 +41,16 @@ html, body{
 	font-family: Calibri;
 }
 
+.box {
+	/*background-color: beige;
+	border-radius: 5px;
+	border: 2px dodgerblue solid;*/
+
+	display:grid;
+	align-items: center;
+	justify-items: center; 
+}
+
 .cardGridContainer {
 	display: grid;
 	grid-template-columns: repeat(3, 170px);
@@ -130,16 +140,6 @@ html, body{
 	grid-template-rows: 1fr;
 	grid-template-columns: 1fr 1fr;
 	grid-gap:5px;
-}
-
-.box {
-	/*background-color: beige;
-	border-radius: 5px;
-	border: 2px dodgerblue solid;*/
-
-	display:grid;
-	align-items: center;
-	justify-items: center; 
 }
 
 .hit.button{
