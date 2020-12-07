@@ -149,6 +149,7 @@ class Player{
 	}
 
 	bust() {
+		viewManager.revealBust(this.id)
 		gameManager.endGame(this.id)
 	}
 }
@@ -159,6 +160,9 @@ let gameManager = {
 	endGame(loser) {
 
 		// TODO: Disable user buttons until restart (and ideally make them look disabled)
+		$('.hit.button').off('click');
+		$('.stand.button').off('click');
+		viewManager.disableButtons();
 
 		let messageText = "";
 		// if the dealer lost, display a message indicating that the user won
@@ -255,11 +259,7 @@ let viewManager = {
 	updatePointView(player){
 		let playerName = player.id;
 		let points = player.hand.pointTotal;
-		if(points > 21){
-			$(`.${playerName}Score span`).text(`${points} BUST`)
-		}else{
-			$(`.${playerName}Score span`).text(`${points}`)
-		}
+		$(`.${playerName}Score span`).text(`${points}`)
 	},
 	updatePlayerViews(player, card){
 		this.updateHandView(player, card);
@@ -282,6 +282,12 @@ let viewManager = {
 	},
 	displayMessage(text){
 		$(`.message h2`).text(`${text}`);
+	},
+	disableButtons(){
+		$('.buttons').addClass('disabled')
+	},
+	revealBust(playerName){
+		$(`.${playerName}BustContainer .bustText`).removeClass('hidden')
 	}
 }
 

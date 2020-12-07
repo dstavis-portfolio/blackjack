@@ -30,11 +30,11 @@ html, body{
 					 "space userName userScore hit stand";*/
 	/*grid-template-columns: 100px repeat(3, 1fr) 100px;*/
 
-	grid-template-areas: "dealerName dealerScore header header header"
+	grid-template-areas: "dealerName dealerScore dealerBustContainer header header"
 						 "dealerHand dealerHand dealerHand dealerHand dealerHand"
 						 "message message message message message"
 						 "userHand userHand userHand userHand userHand"
-						 "userName userScore footer buttons buttons";
+						 "userName userScore userBustContainer buttons buttons";
 	grid-template-columns: repeat(5, 1fr);
 	/*grid-template-columns: repeat(5, 1fr);*/
 	grid-template-rows: 1fr 3fr 2fr 3fr 1fr;
@@ -49,6 +49,24 @@ html, body{
 	display:grid;
 	align-items: center;
 	justify-items: center; 
+	align-self: center;
+}.box.left{
+	justify-self: left;
+}
+
+.dealerBustContainer{
+	grid-area: dealerBustContainer;
+}
+
+.hidden {
+	display:none;
+}
+
+.bustText{
+	color:red;
+	font-size: 30px;
+	font-weight: bolder;
+	align-self: start;
 }
 
 .cardGridContainer {
@@ -133,6 +151,10 @@ html, body{
 	grid-area: userScore;
 }
 
+.userBustContainer{
+	grid-area: userBustContainer;
+}
+
 .buttons{
 	grid-area: buttons;
 	display: inline-grid;
@@ -148,6 +170,16 @@ html, body{
 }
 .stand.button{
 	justify-self:start;
+}
+
+.disabled .button{
+	opacity: 0.5;
+}.disabled .button:hover{
+	background-color:#5a6b68;
+	cursor: not-allowed;
+}.disabled .button:active{
+	position:relative;
+	top:0px;
 }
 
 .button {
@@ -173,6 +205,7 @@ html, body{
     -webkit-text-stroke-color: #77838f;
 }.button:hover {
 	background-color:#6c7c7c;
+	cursor: pointer;
 }.button:active {
 	position:relative;
 	top:1px;
