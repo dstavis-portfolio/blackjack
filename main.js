@@ -162,21 +162,27 @@ let gameManager = {
 		// TODO: Disable user buttons until restart (and ideally make them look disabled)
 		$('.hit.button').off('click');
 		$('.stand.button').off('click');
-		viewManager.disableButtons();
+		viewManager.toggleButtons();
 
 		let messageText = "";
 		// if the dealer lost, display a message indicating that the user won
 		if(loser === "tie"){
-			messageText = "Wow! A tie. Refresh the page to play a new round.";
+			messageText = "Wow! A tie.";
 		}else if (loser === "dealer"){
-			messageText = "Congratulations! You win! Refresh the page to play a new round.";
+			messageText = "Congratulations! You win!";
 		}else if (loser === "user"){
-			messageText = "Oooh, sorry...you lost this round. Refresh the page to play a new round.";
+			messageText = "Oooh, sorry...you lost this round.";
 		}
 		
 		viewManager.displayMessage(messageText);
-
 		// display a reset button to start a new game
+		viewManager.toggleRestartButton()
+		$(`.restart.button`).on('click', () => { 
+			viewManager.toggleButtons();
+			viewManager.toggleRestartButton();
+			viewManager.eraseMessage();
+			gameManager.startNewGame();
+		})
 	},
 	determineLoser(){
 		if(this.dealer.hand.pointTotal === this.user.hand.pointTotal){
@@ -211,6 +217,8 @@ let gameManager = {
 	},
 	startNewGame() {
 		// clear the visual cards off the screen TODO: implement visual cards and clear them
+		viewManager.hideBusts()
+		viewManager.clearCards()
 		// reshuffle the deck so that it contains all cards
 		deck.reshuffle();
 		// reset the model representation of cards in the players' hands
@@ -225,6 +233,7 @@ let gameManager = {
 		this.user.hit()
 
 		// Update the starting view
+		
 		viewManager.updatePlayerViews(this.dealer)
 		viewManager.updatePlayerViews(this.user)
 
@@ -251,10 +260,6 @@ let viewManager = {
 				this.addCardToHandView(player, cards[i])
 			}
 		}
-		// for(i = 0; i < cards.length; i++){
-		// 	// cardDisplays.eq(i).text(`${cards[i].name}`)
-		// 	cardDisplays.eq(i)
-		// }
 	},
 	updatePointView(player){
 		let playerName = player.id;
@@ -280,14 +285,34 @@ let viewManager = {
 		// delete the copy card and its img
 
 	},
+	clearCards(){
+		$(".card").remove();
+	},
 	displayMessage(text){
 		$(`.message h2`).text(`${text}`);
 	},
-	disableButtons(){
-		$('.buttons').addClass('disabled')
+	eraseMessage(){
+		$(`.message h2`).text("");
+	},
+	toggleButtons(){
+		if ($('.buttons').hasClass('disabled')){
+			$('.buttons').removeClass('disabled')	
+		}else{
+			$('.buttons').addClass('disabled')
+		}
+	},
+	toggleRestartButton(){
+		if ($(".restart.button").length === 0){
+			$(`.message`).append(`<div class="restart button">NEW ROUND</div>`);
+		}else{
+			$(`.restart.button`).remove()
+		}
 	},
 	revealBust(playerName){
-		$(`.${playerName}BustContainer .bustText`).removeClass('hidden')
+		$(`.${playerName}BustContainer .bustText`).show()
+	},
+	hideBusts(){
+		$(`.bustText`).hide()	
 	}
 }
 

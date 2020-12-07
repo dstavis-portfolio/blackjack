@@ -58,15 +58,14 @@ html, body{
 	grid-area: dealerBustContainer;
 }
 
-.hidden {
-	display:none;
-}
-
 .bustText{
 	color:red;
 	font-size: 30px;
 	font-weight: bolder;
 	align-self: start;
+}
+.hidden{
+	display:none;
 }
 
 .cardGridContainer {
@@ -170,6 +169,12 @@ html, body{
 }
 .stand.button{
 	justify-self:start;
+}
+.restart.button{
+	width:inherit;
+	height:inherit;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .disabled .button{
