@@ -269,6 +269,16 @@ let viewManager = {
 		// let cardHTML = `<div class="card"><span class="cardName">${card.name}</span></div>` //text-only version
 		let cardHTML = `<div class="card"><img class="cardImage" src="./img/cards/${card.imgName}" alt="${card.name}"></div>`
 		$(`.${player.id}Hand`).append(cardHTML)
+
+		// animation:
+		// deck image exists on page.
+		// add a card to the dom, its img starts out invisible/hidden but its div is not
+		// use jquery to find out the .offset() of the card's div
+		// create a copy of that card's image on top of the deck
+		// move the copy of the card to the offet of the real card
+		// reveal the real card's img
+		// delete the copy card and its img
+
 	},
 	displayMessage(text){
 		$(`.message h2`).text(`${text}`);

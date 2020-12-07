@@ -5,11 +5,22 @@ html, body{
 	padding: 0;
 }
 
-.bigGrid {
-	/*border:dashed red;*/
-	box-shadow: inset 10px 10px 100px 1px rgba(0,0,0,0.35);
+.spacer{
 	width: 100%;
 	height: 100%;
+	display: grid;
+	grid-template-rows: minmax(0px, 1fr);
+	grid-template-columns: minmax(0px, 250px) 1fr minmax(0px, 250px);
+	/*border:dashed green;*/
+	box-shadow: inset 10px 10px 100px 1px rgba(0,0,0,0.35);
+}
+
+.bigGrid {
+	/*border: dashed red;*/
+	grid-area: 1 / 2 / span 1 / span 1;
+	/*box-shadow: inset 10px 10px 100px 1px rgba(0,0,0,0.35);*/
+/*	width: 100%;
+	height: 100%;*/
 	display: grid;
 
 	/*grid-template-areas: "space dealerName dealerScore header space"
@@ -23,7 +34,7 @@ html, body{
 						 "dealerHand dealerHand dealerHand dealerHand dealerHand"
 						 "message message message message message"
 						 "userHand userHand userHand userHand userHand"
-						 "userName userScore footer hit stand";
+						 "userName userScore footer buttons buttons";
 	grid-template-columns: repeat(5, 1fr);
 	/*grid-template-columns: repeat(5, 1fr);*/
 	grid-template-rows: 1fr 3fr 2fr 3fr 1fr;
@@ -33,7 +44,7 @@ html, body{
 .cardGridContainer {
 	display: grid;
 	grid-template-columns: repeat(3, 170px);
-	grid-auto-columns: 170pxfr;
+	grid-auto-columns: 170px;
 	grid-auto-flow: column;
 	grid-template-rows: 1fr;
 	align-items: center;
@@ -112,18 +123,20 @@ html, body{
 	grid-area: userScore;
 }
 
-.hit{
-	grid-area: hit;
-}
-
-.stand{
-	grid-area: stand;
+.buttons{
+	grid-area: buttons;
+	display: inline-grid;
+	align-items: center;
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr 1fr;
+	grid-gap:5px;
 }
 
 .box {
-/*	background-color: beige;
+	/*background-color: beige;
 	border-radius: 5px;
 	border: 2px dodgerblue solid;*/
+
 	display:grid;
 	align-items: center;
 	justify-items: center; 
@@ -131,9 +144,10 @@ html, body{
 
 .hit.button{
 	justify-self:end;
+
 }
 .stand.button{
-	justify-self:center;
+	justify-self:start;
 }
 
 .button {
@@ -143,7 +157,7 @@ html, body{
 	border-radius:3px;
 
 	border:1px solid #566963;
-	/*display:inline-block;*/
+	
 	color:#ffffff;
 	font-family:Verdana;
 	font-size:33px;
@@ -151,7 +165,7 @@ html, body{
 	line-height:50px;
 	width:140px;
 	font-weight: bolder;
-	/*letter-spacing: 0.0625em: */
+	
 	text-decoration:none;
 	text-align:center;
 
