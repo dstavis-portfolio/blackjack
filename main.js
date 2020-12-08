@@ -271,18 +271,25 @@ let viewManager = {
 		this.updatePointView(player);
 	},
 	addCardToHandView(player, card){
-		// let cardHTML = `<div class="card"><span class="cardName">${card.name}</span></div>` //text-only version
-		let cardHTML = `<div class="card"><img class="cardImage" src="./img/cards/${card.imgName}" alt="${card.name}"></div>`
-		$(`.${player.id}Hand`).append(cardHTML)
+		// use jquery to find out the .offset() of the deck
+		let deckPosition = $(`.deck`).offset(); //offset returns top: and left: relative to the document, not the parent
 
-		// animation:
-		// deck image exists on page.
-		// add a card to the dom, its img starts out invisible/hidden but its div is not
-		// use jquery to find out the .offset() of the card's div
-		// create a copy of that card's image on top of the deck
-		// move the copy of the card to the offet of the real card
-		// reveal the real card's img
-		// delete the copy card and its img
+		// let cardHTML = `<div class="card"><span class="cardName">${card.name}</span></div>` //text-only version
+		let cardHTML = `<div class="card"><img class="cardImage hidden animating" src="./img/cards/${card.imgName}" alt="${card.name}"></div>`
+		
+		// add a card to the dom, its img starts out absolutely positioned over the deck but its div is not
+		$(`.${player.id}Hand`).append(cardHTML);
+		let cardDivPosition = $(`.${player.id}Hand .card`).filter(":last").offset();
+		// move the image to the offset of the parent
+		$(`.${player.id}Hand .cardImage`).filter(":last").css({top: `${deckPosition.top}px`, left:`${deckPosition.left}px`}).removeClass("hidden").animate({
+			top: `${cardDivPosition.top}px`,
+			left: `${cardDivPosition.left}px`
+		}, {
+			done: (promise) => {
+				$(promise.elem).removeClass("animating")
+			}
+		})
+		
 
 	},
 	clearCards(){

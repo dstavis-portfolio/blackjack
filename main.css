@@ -9,7 +9,7 @@ html, body{
 	width: 100%;
 	height: 100%;
 	display: grid;
-	grid-template-rows: minmax(0px, 1fr);
+	grid-template-rows: repeat(3, minmax(0px, 1fr));
 	grid-template-columns: minmax(0px, 250px) 1fr minmax(0px, 250px);
 	/*border:dashed green;*/
 	box-shadow: inset 10px 10px 100px 1px rgba(0,0,0,0.35);
@@ -17,18 +17,8 @@ html, body{
 
 .bigGrid {
 	/*border: dashed red;*/
-	grid-area: 1 / 2 / span 1 / span 1;
-	/*box-shadow: inset 10px 10px 100px 1px rgba(0,0,0,0.35);*/
-/*	width: 100%;
-	height: 100%;*/
+	grid-area: 1 / 2 / span 3 / span 1;
 	display: grid;
-
-	/*grid-template-areas: "space dealerName dealerScore header space"
-					 "space dealerHand dealerHand dealerHand space"
-					 "space message message message space"
-					 "space userHand userHand userHand space"
-					 "space userName userScore hit stand";*/
-	/*grid-template-columns: 100px repeat(3, 1fr) 100px;*/
 
 	grid-template-areas: "dealerName dealerScore dealerBustContainer header header"
 						 "dealerHand dealerHand dealerHand dealerHand dealerHand"
@@ -36,7 +26,6 @@ html, body{
 						 "userHand userHand userHand userHand userHand"
 						 "userName userScore userBustContainer buttons buttons";
 	grid-template-columns: repeat(5, 1fr);
-	/*grid-template-columns: repeat(5, 1fr);*/
 	grid-template-rows: 1fr 3fr 2fr 3fr 1fr;
 	font-family: Calibri;
 }
@@ -52,6 +41,13 @@ html, body{
 	align-self: center;
 }.box.left{
 	justify-self: left;
+}
+
+.deck{
+	grid-row-start: 2;
+	grid-row-end: span 1;
+	justify-self: center;
+	align-self: center;
 }
 
 .dealerBustContainer{
@@ -70,30 +66,26 @@ html, body{
 
 .cardGridContainer {
 	display: grid;
-	grid-template-columns: repeat(3, 170px);
-	grid-auto-columns: 170px;
+	grid-template-columns: repeat(3, minmax(140px, 170px));
+	grid-auto-columns: minmax(140px, 170px);
 	grid-auto-flow: column;
-	grid-template-rows: 1fr;
+	grid-template-rows: minmax(190px, 1fr);
 	align-items: center;
 	justify-items: center;
 	grid-column-gap: 5px;
 }
 .card{
-	height: 210px;
-	width: 150px;
-	/*background-color: #f7f4ef;*/
-	/*border: 1px solid darkgrey;*/
-	/*border-radius: 15px;*/
-	/*box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.17);*/
-	display: inline-grid;
-	justify-items: center;
-	align-items: center;
-	font-family: Garamondi;
-	font-weight: bold;
+	height: 190px;
+	width: 140px;
 }
 .card img{
 	box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.3);
 	border-radius:6px;
+}
+
+.animating{
+	z-index: 5;
+	position:absolute;
 }
 
 .dealerName{
